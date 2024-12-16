@@ -1,0 +1,3 @@
+The Expense Tracker is a simple command-line tool designed to help you manage your expenses efficiently. 
+It allows you to add, delete, list, and view the total of your expenses. Whether you're tracking individual transactions or keeping an overview of your spending, 
+this tool provides a straightforward way to interact with your data.

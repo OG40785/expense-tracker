@@ -3,6 +3,12 @@ import argparse
 import validations
 from expencesTracker import ExpencesTracker
 
+def read_description()->str:
+    try:
+        with open('description.txt', 'r') as file:
+            return file.read()
+    except FileNotFoundError:
+        return "Description file not found."
 
 def start():
     try:
@@ -129,14 +135,16 @@ def total_expenses(year) -> None:
 
 
 def commands() -> argparse.Namespace:
+    text = read_description()
     # Create the parser
-    parser = argparse.ArgumentParser(description="Expense tracker")
+    parser = argparse.ArgumentParser(prog='Expence tracker',description=text)
 
     # Add the command-line arguments
 
     subparsers = parser.add_subparsers(dest="operation", help="Available actions")
 
-    add_parser = subparsers.add_parser("add", help="Addition")
+
+    add_parser = subparsers.add_parser("add", help="Adds a new expense to the tracker.")
     add_parser.add_argument("--year", nargs=1, type=str, help="Year of the expence")
     add_parser.add_argument("--month", nargs=1, type=str, help="Month of the expence")
     add_parser.add_argument(
@@ -169,7 +177,7 @@ def commands() -> argparse.Namespace:
         type=str,
         help="Description of the expense, limited to 5 words (e.g., Bought snacks for the party)",
     )
-    delete_by_id_parser = subparsers.add_parser("deleteId", help="Deletion by ID")
+    delete_by_id_parser = subparsers.add_parser("deleteId", help="Deletes an expense by its unique ID.")
     delete_by_id_parser.add_argument(
         "--year", nargs=1, type=str, help="Year of the expence"
     )
@@ -177,7 +185,7 @@ def commands() -> argparse.Namespace:
         "--id", nargs=1, type=int, help="ID of the expence"
     )
 
-    delete_parser = subparsers.add_parser("delete", help="Deletion")
+    delete_parser = subparsers.add_parser("delete", help="Deletes an expense")
 
     delete_parser.add_argument("--year", nargs=1, type=str, help="Year of the expence")
     delete_parser.add_argument(
@@ -197,11 +205,11 @@ def commands() -> argparse.Namespace:
         help="Date of the expense in format YYYY-MM-DD (e.g., 2024-12-13)",
     )
 
-    list_parser = subparsers.add_parser("list", help="List all expences")
+    list_parser = subparsers.add_parser("list", help="Lists all recorded expenses.")
     list_parser.add_argument("--year", nargs=1, type=str, help="Year of the expence")
 
     total_amount_parser = subparsers.add_parser(
-        "total", help="List total amount of all expences"
+        "total", help="Shows the total amount of all expenses"
     )
     total_amount_parser.add_argument(
         "--year", nargs=1, type=str, help="Year of the expence"
