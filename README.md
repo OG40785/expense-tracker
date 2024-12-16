@@ -2,6 +2,8 @@
 
 The **Expense Tracker** is a simple command-line tool designed to help you manage your expenses efficiently.
 
+The idea for the project comes from [Developer Roadmaps](https://roadmap.sh/backend/projects).
+
 #### Setup Instructions
 
 1. Copy the Project Folder
